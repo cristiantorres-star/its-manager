@@ -12,7 +12,10 @@ docenti, statistiche dell'istituto ed esportazione dei dati in CSV.
 
 Progetto realizzato come consegna d'esame ITS da **Cristian Torres**.
 
-![Ambiente Cloud Shell del progetto](screenshot_CloudShell.png)
+![Dashboard di ITS Manager dopo il login come Amministratore](docs/dashboard.png)
+
+*Dashboard dopo il login come Amministratore: statistiche dell'istituto,
+registro valutazioni e anagrafica.*
 
 ---
 
@@ -142,6 +145,10 @@ its-manager/
 ├── database.py                  schema SQLite e dati istituzionali
 ├── persone.py                   modello OOP di persone, studenti e docenti
 ├── screenshot_CloudShell.png    screenshot dell'ambiente Cloud Shell
+├── docs/
+│   └── dashboard.png            screenshot della dashboard (rigenerabile)
+├── tools/
+│   └── capture_dashboard.py     avvia l'app e cattura la dashboard
 └── .gitignore                   esclude database, log, report e cache
 ```
 
@@ -166,6 +173,23 @@ che Excel italiano apra i CSV senza passare dall'import guidato.
 
 ---
 
+## 📸 Rigenerare lo screenshot
+
+`docs/dashboard.png` non è un ritaglio fatto a mano: lo script
+`tools/capture_dashboard.py` avvia l'applicazione, esegue il login e salva il
+contenuto della finestra.
+
+```bash
+pip install pillow          # dipendenza usata solo da questo strumento
+python tools/capture_dashboard.py --user admin --password admin123
+```
+
+Pillow non serve all'applicazione: il gestionale continua a girare con la sola
+standard library. Lo script accetta `--output`, `--user`, `--password` e
+`--delay`, e richiede una sessione grafica attiva (non funziona in CI headless).
+
+---
+
 ## 🧰 Scelte tecniche
 
 - **Solo standard library** (`tkinter`, `sqlite3`, `hashlib`, `csv`, `logging`):
@@ -187,3 +211,5 @@ che Excel italiano apra i CSV senza passare dall'import guidato.
   sostituite prima di qualsiasi uso con dati reali.
 - L'applicazione è monoutente e locale: non c'è un server, quindi non esiste
   autenticazione di rete né concorrenza tra più sessioni.
+- Lo script di cattura dipende da Pillow e da un desktop: non è pensato per
+  l'esecuzione automatica in un ambiente senza display.
