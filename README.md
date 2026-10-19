@@ -12,7 +12,7 @@ docenti, statistiche dell'istituto ed esportazione dei dati in CSV.
 
 Progetto realizzato come consegna d'esame ITS da **Cristian Torres**.
 
-![ITS Manager](screenshot_CloudShell.png)
+![Ambiente Cloud Shell del progetto](screenshot_CloudShell.png)
 
 ---
 
@@ -141,7 +141,7 @@ its-manager/
 ├── auth.py                      autenticazione e log degli accessi
 ├── database.py                  schema SQLite e dati istituzionali
 ├── persone.py                   modello OOP di persone, studenti e docenti
-├── screenshot_CloudShell.png    screenshot dell'applicazione
+├── screenshot_CloudShell.png    screenshot dell'ambiente Cloud Shell
 └── .gitignore                   esclude database, log, report e cache
 ```
 
