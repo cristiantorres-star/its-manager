@@ -1,0 +1,18 @@
+# Database e log generati a runtime
+its_manager.db
+*.db
+*.db-journal
+accessi.log
+
+# Report esportati dall'applicazione
+report_*.csv
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Sistema
+.DS_Store
+Thumbs.db
