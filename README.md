@@ -102,6 +102,11 @@ I dati iniziali vengono inseriti solo se la tabella `utenti` è vuota.
 Ogni utente è registrato sia con l'email sia con il nome per esteso, quindi il
 login funziona con entrambi.
 
+![Schermata di accesso di ITS Manager](docs/login.png)
+
+*Schermata di accesso: le credenziali vengono verificate da `AuthManager` e
+ogni tentativo finisce in `accessi.log`.*
+
 ---
 
 ## 👥 Ruoli e permessi
@@ -146,9 +151,10 @@ its-manager/
 ├── persone.py                   modello OOP di persone, studenti e docenti
 ├── screenshot_CloudShell.png    screenshot dell'ambiente Cloud Shell
 ├── docs/
-│   └── dashboard.png            screenshot della dashboard (rigenerabile)
+│   ├── dashboard.png            screenshot della dashboard (rigenerabile)
+│   └── login.png                screenshot della schermata di accesso
 ├── tools/
-│   └── capture_dashboard.py     avvia l'app e cattura la dashboard
+│   └── capture_screenshots.py   avvia l'app e cattura login e dashboard
 └── .gitignore                   esclude database, log, report e cache
 ```
 
@@ -173,20 +179,23 @@ che Excel italiano apra i CSV senza passare dall'import guidato.
 
 ---
 
-## 📸 Rigenerare lo screenshot
+## 📸 Rigenerare gli screenshot
 
-`docs/dashboard.png` non è un ritaglio fatto a mano: lo script
-`tools/capture_dashboard.py` avvia l'applicazione, esegue il login e salva il
-contenuto della finestra.
+Le immagini in `docs/` non sono ritagli fatti a mano: lo script
+`tools/capture_screenshots.py` avvia l'applicazione e salva il contenuto della
+finestra, sia per il login sia per la dashboard.
 
 ```bash
 pip install pillow          # dipendenza usata solo da questo strumento
-python tools/capture_dashboard.py --user admin --password admin123
+python tools/capture_screenshots.py                      # entrambe le schermate
+python tools/capture_screenshots.py --view login         # solo il login
+python tools/capture_screenshots.py --view dashboard --user admin --password admin123
 ```
 
 Pillow non serve all'applicazione: il gestionale continua a girare con la sola
-standard library. Lo script accetta `--output`, `--user`, `--password` e
-`--delay`, e richiede una sessione grafica attiva (non funziona in CI headless).
+standard library. Lo script accetta `--view` (`login`, `dashboard`, `both`),
+`--output`, `--login-output`, `--user`, `--password` e `--delay`, e richiede una
+sessione grafica attiva (non funziona in CI headless).
 
 ---
 
@@ -213,3 +222,5 @@ standard library. Lo script accetta `--output`, `--user`, `--password` e
   autenticazione di rete né concorrenza tra più sessioni.
 - Lo script di cattura dipende da Pillow e da un desktop: non è pensato per
   l'esecuzione automatica in un ambiente senza display.
+- Gli screenshot riflettono il tema e il layout attuali: vanno rigenerati quando
+  cambia la GUI, altrimenti documentano un'interfaccia che non esiste più.
